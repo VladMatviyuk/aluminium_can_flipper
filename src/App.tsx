@@ -1,8 +1,12 @@
 import { useReducer, useEffect } from 'react';
 import './App.css';
 
+interface IDeck {
+  beer: number;
+  matched: boolean;
+}
 
-const generateDeck = () => {
+const generateDeck = (): IDeck[] => {
   const beers = [1,2,3,4,5,6];
   const deck = [];
   // Каждому цвету добавляем две карточки
@@ -14,8 +18,17 @@ const generateDeck = () => {
   return deck.sort(() => Math.random() - 0.5);
 };
 
+interface IState {
+  deck: IDeck[];
+  flipped: number[];
+  matched: number[];
+  turns: number;
+  score: number;
+  pendingReset: boolean;
+  gameOver: boolean;
+}
 
-const initialState = {
+const initialState: IState = {
   deck: generateDeck(),
   flipped: [],
   matched: [],
@@ -25,18 +38,20 @@ const initialState = {
   gameOver: false,
 };
 
-
-const gameReducer = (state, action) => {
+interface IAction {
+  index?: number;
+  type: string;
+}
+const gameReducer = (state: IState, action: IAction) => {
   switch (action.type) {
 
     case 'FLIP_CARD':
       // Переворачиваем карточку
-      if (state.flipped.length < 2 && !state.flipped.includes(action.index) && !state.matched.includes(state.deck[action.index].beer)) {
+      if (state.flipped.length < 2 && action.index && !state.flipped.includes(action.index) && !state.matched.includes(state.deck[action.index].beer)) {
         return { ...state, flipped: [...state.flipped, action.index] };
       }
       return state;
     case 'CHECK_MATCH':
-      debugger
       // Проверяем совпадение перевернутых карточек
       const [first, second] = state.flipped;
       if (state.deck[first].beer === state.deck[second].beer) {
@@ -96,7 +111,7 @@ const App = () => {
 
 
   // Обработка клика на карточку
-  const handleCardClick = (index) => {
+  const handleCardClick = (index: number) => {
     if (!state.gameOver && state.flipped.length < 2 && !state.flipped.includes(index)) {
       dispatch({ type: 'FLIP_CARD', index });
     }
@@ -117,7 +132,7 @@ const App = () => {
         <p>Попытки: {state.turns}/15</p>
       </div>
       <div className="deck">
-        {state.deck.map((card, index) => (
+        {state.deck.map((card, index: number) => (
           <div
             key={index}
             className={`card ${state.flipped.includes(index) || state.matched.includes(card.beer) ? 'flipped show' : ''}`}

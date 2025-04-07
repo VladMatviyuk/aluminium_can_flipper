@@ -47,7 +47,7 @@ const gameReducer = (state: IState, action: IAction) => {
 
     case 'FLIP_CARD':
       // Переворачиваем карточку
-      if (state.flipped.length < 2 && action.index && !state.flipped.includes(action.index) && !state.matched.includes(state.deck[action.index].beer)) {
+      if (state.flipped.length < 2 && action.index !== undefined && !state.flipped.includes(action.index) && !state.matched.includes(state.deck[action.index].beer)) {
         return { ...state, flipped: [...state.flipped, action.index] };
       }
       return state;
@@ -112,6 +112,7 @@ const App = () => {
 
   // Обработка клика на карточку
   const handleCardClick = (index: number) => {
+    debugger
     if (!state.gameOver && state.flipped.length < 2 && !state.flipped.includes(index)) {
       dispatch({ type: 'FLIP_CARD', index });
     }

@@ -109,10 +109,8 @@ const App = () => {
     }
   }, [state.pendingReset]);
 
-
   // Обработка клика на карточку
   const handleCardClick = (index: number) => {
-    debugger
     if (!state.gameOver && state.flipped.length < 2 && !state.flipped.includes(index)) {
       dispatch({ type: 'FLIP_CARD', index });
     }

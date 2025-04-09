@@ -1,24 +1,31 @@
 import { useReducer, useEffect } from 'react';
 import './App.css';
 
+import InfinityFlip from '@/components/InfinityFlip';
+import Logo from '@/components/Logo';
+import Info from '@/components/Info';
+import Deck from '@/components/Deck';
+import GameOver from '@/components/GameOver';
+
+
 interface IDeck {
   beer: number;
   matched: boolean;
 }
 
 const generateDeck = (): IDeck[] => {
-  const beers = [1,2,3,4,5,6];
+  const beers = [1, 2, 3, 4, 5, 6];
   const deck = [];
   // Каждому цвету добавляем две карточки
   for (const beer of beers) {
-    deck.push({ beer, matched: false });
-    deck.push({ beer, matched: false });
+    deck.push({beer, matched: false});
+    deck.push({beer, matched: false});
   }
   // Перемешиваем колоду
   return deck.sort(() => Math.random() - 0.5);
 };
 
-interface IState {
+export interface IState {
   deck: IDeck[];
   flipped: number[];
   matched: number[];
@@ -42,13 +49,14 @@ interface IAction {
   index?: number;
   type: string;
 }
+
 const gameReducer = (state: IState, action: IAction) => {
   switch (action.type) {
 
     case 'FLIP_CARD':
       // Переворачиваем карточку
       if (state.flipped.length < 2 && action.index !== undefined && !state.flipped.includes(action.index) && !state.matched.includes(state.deck[action.index].beer)) {
-        return { ...state, flipped: [...state.flipped, action.index] };
+        return {...state, flipped: [...state.flipped, action.index]};
       }
       return state;
     case 'CHECK_MATCH':
@@ -66,14 +74,14 @@ const gameReducer = (state: IState, action: IAction) => {
           gameOver: isGameOver,
         };
       } else {
-        return { ...state, pendingReset: true };
+        return {...state, pendingReset: true};
       }
     case 'RESET_FLIPPED':
       // Сбрасываем перевернутые карточки
-      return { ...state, flipped: [], pendingReset: false };
+      return {...state, flipped: [], pendingReset: false};
     case 'INCREMENT_TURN':
       // Увеличиваем счетчик попыток
-      return { ...state, turns: state.turns + 1 };
+      return {...state, turns: state.turns + 1};
     case 'RESET_GAME':
       // Сбрасываем состояние игры
       return {
@@ -89,12 +97,11 @@ const gameReducer = (state: IState, action: IAction) => {
 const App = () => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
-
   // Проверка на совпадение перевернутых карточек
   useEffect(() => {
     if (state.flipped.length === 2) {
-      dispatch({ type: 'CHECK_MATCH' });
-      dispatch({ type: 'INCREMENT_TURN' });
+      dispatch({type: 'CHECK_MATCH'});
+      dispatch({type: 'INCREMENT_TURN'});
     }
   }, [state.flipped]);
 
@@ -103,7 +110,7 @@ const App = () => {
   useEffect(() => {
     if (state.pendingReset) {
       const timer = setTimeout(() => {
-        dispatch({ type: 'RESET_FLIPPED' });
+        dispatch({type: 'RESET_FLIPPED'});
       }, 1000);
       return () => clearTimeout(timer);
     }
@@ -112,57 +119,25 @@ const App = () => {
   // Обработка клика на карточку
   const handleCardClick = (index: number) => {
     if (!state.gameOver && state.flipped.length < 2 && !state.flipped.includes(index)) {
-      dispatch({ type: 'FLIP_CARD', index });
+      dispatch({type: 'FLIP_CARD', index});
     }
   };
 
-
   const handlePlayAgain = () => {
-    dispatch({ type: 'RESET_GAME' });
+    dispatch({type: 'RESET_GAME'});
   };
 
 
   return (
     <div className="App">
-      <img src="/beers/1.jpeg" alt="" />
-      <h1>Beer flip</h1>
-      <div className="info">
-        <p>Очки: {state.score}</p>
-        <p>Попытки: {state.turns}/15</p>
-      </div>
-      <div className="deck">
-        {state.deck.map((card, index: number) => (
-          <div
-            key={index}
-            className={`card ${state.flipped.includes(index) || state.matched.includes(card.beer) ? 'flipped show' : ''}`}
-            onClick={() => handleCardClick(index)}
-          >
-            {
-              state.flipped.includes(index) || state.matched.includes(card.beer) 
-                ? <img src={`beers/${card.beer}.jpeg`} />
-                : <></>
-            }
-          </div>
-        ))}
-      </div>
-      {state.gameOver && (
-        <>
-          <div className="overlay" />
-          <div className="game-over">
-            <h2>Вы выиграли!</h2>
-            <button onClick={handlePlayAgain}>Заново</button>
-          </div>
-        </>
-      )}
-      {!state.gameOver && state.turns >= 15 && (
-        <>
-          <div className="overlay" />
-          <div className="game-over">
-            <h2>Игра окончена!</h2>
-            <button onClick={handlePlayAgain}>Заново</button>
-          </div>
-        </>
-      )}
+      <InfinityFlip/>
+      <Logo/>
+      <Info score={ state.score } turns={ state.turns }/>
+      <Deck state={ state } cardClick={ handleCardClick }/>
+
+      { state.gameOver && <GameOver title={ 'Вы выиграли!' } reset={ handlePlayAgain }/> }
+
+      { !state.gameOver && state.turns >= 15 && <GameOver title={ 'Игра окончена!' } reset={ handlePlayAgain }/> }
     </div>
   );
 };

@@ -4,6 +4,7 @@ import path from 'node:path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  assetsInclude: ['**/*otf'],
   plugins: [react()],
   build: {
     outDir: 'build',
@@ -11,8 +12,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      // Дополнительные алиасы (опционально)
-      '@components': path.resolve(__dirname, './src/components')
     }
   }
 })

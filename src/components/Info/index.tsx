@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { IoIosArrowRoundBack } from 'react-icons/io';
 import { IoReload } from 'react-icons/io5';
+import { IoMdClose } from 'react-icons/io';
 
 interface IProps {
   readonly turns?: number;
@@ -12,16 +12,17 @@ interface IProps {
 const Info: FC<IProps> = ({turns, reset, timeLeft}) => {
   return (
     <div className="info">
+
+      { timeLeft && <p>Время: { timeLeft }</p> }
+      { turns !== undefined && <p>Попытки: { turns }/15</p> }
+
       <div className="actions">
-        <Link to={ '..' }>
-          <IoIosArrowRoundBack style={ {color: 'white', fontSize: '42px'} }/>
-        </Link>
         <IoReload onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>
+        <Link to={ '..' }>
+          <IoMdClose style={ {color: 'white', fontSize: '32px'} }/>
+        </Link>
       </div>
-      {
-        timeLeft && <p>Время: { timeLeft }</p>
-      }
-      { turns && <p>Попытки: { turns }/15</p> }
+
     </div>
   )
 }

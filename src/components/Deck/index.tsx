@@ -1,16 +1,15 @@
 import { FC } from 'react';
-import { IState } from '@/App.tsx';
 
 interface IProps {
-  readonly state: IState;
-  readonly cardClick: () => void;
+  readonly state: any;
+  readonly cardClick: (index: number) => void;
 }
 
 const Deck: FC<IProps> = ({state, cardClick}) => {
 
   return (
     <div className="deck">
-      { state.deck.map((card, index: number) => (
+      { state.deck.map((card: any, index: number) => (
         <div
           key={ index }
           className={ `card ${ state.flipped.includes(index) || state.matched.includes(card.beer) ? 'flipped show' : '' }` }

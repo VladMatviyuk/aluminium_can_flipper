@@ -1,7 +1,5 @@
 import { useEffect, useReducer } from 'react';
 
-import { InfinityFlip } from '@/components/InfinityFlip';
-import Logo from '@/components/Logo';
 import Info from '@/components/Info';
 import Deck from '@/components/Deck';
 import GameOver from '@/components/GameOver';
@@ -38,7 +36,7 @@ const initialState: IState = {
   matched: [],
   pendingReset: false,
   gameOver: false,
-  timeLeft: 25,
+  timeLeft: 16,
 };
 
 interface IAction {
@@ -148,8 +146,6 @@ export const TimeGame = () => {
 
   return (
     <main>
-      <InfinityFlip/>
-      <Logo/>
       <Info timeLeft={ state.timeLeft } reset={ handlePlayAgain }/>
       <Deck state={ state } cardClick={ handleCardClick }/>
 

@@ -1,7 +1,4 @@
 import { useEffect, useReducer } from 'react';
-
-import { InfinityFlip } from '@/components/InfinityFlip';
-import Logo from '@/components/Logo';
 import Info from '@/components/Info';
 import Deck from '@/components/Deck';
 import GameOver from '@/components/GameOver';
@@ -109,7 +106,7 @@ export const ClassicGame = () => {
     if (state.pendingReset) {
       const timer = setTimeout(() => {
         dispatch({type: 'RESET_FLIPPED'});
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [state.pendingReset]);
@@ -127,8 +124,6 @@ export const ClassicGame = () => {
 
   return (
     <main>
-      <InfinityFlip/>
-      <Logo/>
       <Info turns={ state.turns } reset={ handlePlayAgain }/>
       <Deck state={ state } cardClick={ handleCardClick }/>
 

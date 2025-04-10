@@ -11,7 +11,10 @@ const GameOver: FC<IProps> = ({title, reset}) => {
       <div className="overlay"/>
       <div className="game-over">
         <h2>{ title }</h2>
-        <button onClick={ reset }>Заново</button>
+        { title === 'Вы выиграли!' &&
+          <img src="public/_.gif" alt="firework" style={ {width: '100px', borderRadius: `10px`} }/>
+        }
+        <button onClick={ reset } style={ {background: title === 'Вы выиграли!' ? 'green' : 'red'} }>Заново</button>
       </div>
     </>
   )

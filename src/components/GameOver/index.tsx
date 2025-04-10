@@ -6,9 +6,10 @@ interface IProps {
 }
 
 const GameOver: FC<IProps> = ({title, reset}) => {
+  const overlayClassNames = `overlay ${ title === 'Вы выиграли!' ? 'overlay-win' : '' }`
   return (
     <>
-      <div className="overlay"/>
+      <div className={ overlayClassNames }/>
       <div className="game-over">
         <h2>{ title }</h2>
         <button onClick={ reset } style={ {background: title === 'Вы выиграли!' ? 'green' : 'red'} }>Заново</button>

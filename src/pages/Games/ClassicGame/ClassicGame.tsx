@@ -8,8 +8,19 @@ interface IDeck {
   matched: boolean;
 }
 
+function getRandomUniqueNumbers(length: number, min = 1, max = 34): number[] {
+  const numbers = new Set();
+
+  while (numbers.size < length) {
+    const randomNumber = Math.floor(Math.random() * ( max - min + 1 )) + min;
+    numbers.add(randomNumber);
+  }
+  return Array.from(numbers) as number[];
+}
+
 const generateDeck = (): IDeck[] => {
-  const beers = [1, 2, 3, 4, 5, 6];
+  const beers: number[] = getRandomUniqueNumbers(6);
+
   const deck = [];
   // Каждому цвету добавляем две карточки
   for (const beer of beers) {

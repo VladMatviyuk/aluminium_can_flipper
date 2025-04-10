@@ -100,6 +100,12 @@ h1 {
   z-index: 1;
 }
 
+.overlay-win {
+  background-image: url("public/gif/iskra.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 .navigation {
   display: flex;
   flex-direction: column;

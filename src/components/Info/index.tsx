@@ -5,16 +5,16 @@ import { IoMdClose } from 'react-icons/io';
 
 interface IProps {
   readonly turns?: number;
-  readonly timeLeft?: number;
+  readonly time?: number;
   readonly reset: () => void;
 }
 
-const Info: FC<IProps> = ({turns, reset, timeLeft}) => {
+const Info: FC<IProps> = ({turns, reset, time}) => {
   return (
     <div className="info">
 
-      { timeLeft && <p>Время: { timeLeft }</p> }
-      { turns !== undefined && <p>Попытки: { turns }/15</p> }
+      { time !== undefined && <p>Время: { time }</p> }
+      { turns !== undefined && <p>Ход: { turns }</p> }
 
       <div className="actions">
         <IoReload onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>

@@ -1,23 +1,26 @@
 import { FC } from 'react';
+import { Card } from '@/domains/Deck.ts';
 
 interface IProps {
-  readonly state: any;
-  readonly cardClick: (index: number) => void;
+  readonly deck: Card[];
+  readonly flipped: number[];
+  readonly matched: number[];
+  readonly onCardClick: (index: number) => void;
 }
 
-const Deck: FC<IProps> = ({state, cardClick}) => {
+const Deck: FC<IProps> = ({deck, flipped, matched, onCardClick}) => {
 
   return (
     <div className="deck">
-      { state.deck.map((card: any, index: number) => (
+      { deck.map((card: Card, index: number) => (
         <div
           key={ index }
-          className={ `card ${ state.flipped.includes(index) || state.matched.includes(card.beer) ? 'flipped show' : '' }` }
-          onClick={ () => cardClick(index) }
+          className={ `card ${ flipped.includes(index) || matched.includes(card.id) ? 'flipped show' : '' }` }
+          onClick={ () => onCardClick(index) }
         >
           {
-            state.flipped.includes(index) || state.matched.includes(card.beer)
-              ? <img src={ `beers/${ card.beer }.jpeg` }/>
+            flipped.includes(index) || matched.includes(card.id)
+              ? <img src={ `beers/${ card.id }.jpeg` } alt="card"/>
               : <></>
           }
         </div>

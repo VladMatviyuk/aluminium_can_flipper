@@ -4,9 +4,10 @@ import Deck from '@/components/Deck';
 import Info from '@/components/Info';
 import GameOver from '@/components/GameOver';
 
+const COUNT_TURNS_TO_END_GAME = 15;
 
-export const ClassicGame = () => {
-  const {state, checkMatch, flipCard, tick, resetGame} = useGame();
+export const TurnsGame = () => {
+  const {state, checkMatch, flipCard, tick, resetGame, setGameOver} = useGame();
 
   const {deck, flipped, matched, turns, time, endGame, gameOver} = state;
 
@@ -26,9 +27,13 @@ export const ClassicGame = () => {
     }
   }, [flipped]);
 
+  useEffect(() => {
+    if (turns > COUNT_TURNS_TO_END_GAME) setGameOver();
+  }, [turns])
+
   return (
     <main>
-      <Info time={ time } turns={ turns } reset={ resetGame }/>
+      <Info turns={ COUNT_TURNS_TO_END_GAME - turns } reset={ resetGame }/>
       <Deck
         deck={ deck }
         flipped={ flipped }
@@ -37,8 +42,8 @@ export const ClassicGame = () => {
       />
       { endGame && (
         <GameOver
-          title={ 'Вы выиграли!' }
           gameOver={ gameOver }
+          title={ gameOver ? 'Попытки закончились!' : 'Вы выиграли!' }
           reset={ resetGame }
           content={
             <div>

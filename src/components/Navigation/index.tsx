@@ -5,7 +5,7 @@ export const Navigation = () => {
     <nav className="navigation">
       <Link to="/classicGame">классический</Link>
       <Link to="/timeGame">на время</Link>
-      <Link to="/quest">квест</Link>
+      <Link to="/turnsGame">на ходы</Link>
       {/*<Link to="/statistics">Статистика</Link>*/ }
     </nav>
   )

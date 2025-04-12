@@ -75,10 +75,24 @@ h1 {
   align-items: center;
   flex-direction: column;
   gap: 1rem;
+
+  .actions {
+    display: flex;
+
+    a {
+      color: #fff;
+      background-color: #10162b;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  }
 }
 
 .game-over h2 {
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 
 .game-over button {
@@ -101,7 +115,7 @@ h1 {
 }
 
 .overlay-win {
-  background-image: url("public/gif/iskra.gif");
+  /*background-image: url("gif/iskra.gif");*/
   background-repeat: no-repeat;
   background-position: center center;
 }

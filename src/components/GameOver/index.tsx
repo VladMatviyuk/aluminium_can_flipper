@@ -18,7 +18,7 @@ const GameOver: FC<IProps> = ({title, reset, content, gameOver}) => {
         <h2>{ title }</h2>
         { content }
         <div className="actions">
-          <Link to={ '/' }>
+          <Link to={ '..' }>
             <IoHomeOutline onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>
           </Link>
           <button onClick={ reset } style={ {background: gameOver ? 'red' : 'green'} }>

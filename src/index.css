@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 @font-face {
   font-family: 'Pixy';
   src: url('/fonts/PIXY.otf') format('opentype');

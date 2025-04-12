@@ -4,7 +4,7 @@ import Deck from '@/components/Deck';
 import Info from '@/components/Info';
 import GameOver from '@/components/GameOver';
 
-const COUNT_TURNS_TO_END_GAME = 15;
+const COUNT_TURNS_TO_END_GAME = 12;
 
 export const TurnsGame = () => {
   const {state, checkMatch, flipCard, tick, resetGame, setGameOver} = useGame();
@@ -28,7 +28,7 @@ export const TurnsGame = () => {
   }, [flipped]);
 
   useEffect(() => {
-    if (turns > COUNT_TURNS_TO_END_GAME) setGameOver();
+    if (turns === COUNT_TURNS_TO_END_GAME) setGameOver();
   }, [turns])
 
   return (

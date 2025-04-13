@@ -21,6 +21,8 @@ export const TimeGame = () => {
 
   // Проверка совпадений
   useEffect(() => {
+    if (endGame) return;
+    
     if (flipped.length === 2) {
       const timer = setTimeout(() => checkMatch(), 400);
       return () => clearTimeout(timer);

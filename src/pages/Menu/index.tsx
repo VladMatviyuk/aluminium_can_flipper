@@ -5,7 +5,6 @@ export const Menu = () => {
   return (
     <main>
       <InfinityFlip/>
-
       <Navigation/>
     </main>
   )

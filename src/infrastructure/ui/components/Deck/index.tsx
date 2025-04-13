@@ -1,3 +1,5 @@
+import style from './style.module.css';
+
 import { type FC } from 'react';
 import { Card } from '@/domains/deck/Deck';
 
@@ -11,20 +13,25 @@ interface IProps {
 const Deck: FC<IProps> = ({deck, flipped, matched, onCardClick}) => {
 
   return (
-    <div className="deck">
-      { deck.map((card: Card, index: number) => (
-        <div
-          key={ index }
-          className={ `card ${ flipped.includes(index) || matched.includes(card.id) ? 'flipped show' : '' }` }
-          onClick={ () => onCardClick(index) }
-        >
-          {
-            flipped.includes(index) || matched.includes(card.id)
-              ? <img src={ `bottle/${ card.id }.jpeg` } alt="card"/>
-              : <></>
-          }
-        </div>
-      )) }
+    <div className={ style.deck }>
+      {
+        deck.map((card: Card, index: number) => (
+          <div
+            key={ index }
+            className={ `
+            ${ style.card } 
+            ${ flipped.includes(index) || matched.includes(card.id) ? `${ style.flipped } ${ style.show }` : '' }
+           ` }
+            onClick={ () => onCardClick(index) }
+          >
+            {
+              flipped.includes(index) || matched.includes(card.id)
+                ? <img src={ `bottle/${ card.id }.jpeg` } alt="card"/>
+                : <></>
+            }
+          </div>
+        ))
+      }
     </div>
   )
 }

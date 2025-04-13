@@ -1,3 +1,5 @@
+import style from './style.module.css';
+
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 import { IoReload, IoHomeOutline } from 'react-icons/io5';
@@ -15,24 +17,25 @@ const GameOver: FC<IProps> = ({endGame, title, reset, gameOver, turns, time}) =>
 
   if (!endGame) return;
 
-  const overlayClassNames = `overlay ${ gameOver ? '' : 'overlay-win' }`;
   return (
     <>
-      <div className={ overlayClassNames }/>
-      <div className="game-over">
-        <h2>{ title }</h2>
+      <div className={ style.overlay }/>
+      <div className={ style.gameOver }>
+        <h2 className={ style.title }>{ title }</h2>
 
         <div>
           <p>Попыток: { turns }</p>
           <p>Время: { time }</p>
         </div>
 
-        <div className="actions">
+        <div className={ style.actions }>
           <Link to={ '..' }>
-            <IoHomeOutline onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>
+            <IoHomeOutline onClick={ reset } className={ style.icon }/>
           </Link>
-          <button onClick={ reset } style={ {background: gameOver ? 'red' : 'green'} }>
-            <IoReload onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>
+
+          <button className={ style.button } onClick={ reset }
+                  style={ {background: gameOver ? 'red' : 'green'} }>
+            <IoReload onClick={ reset } className={ style.icon }/>
           </button>
         </div>
       </div>

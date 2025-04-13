@@ -1,3 +1,5 @@
+import styles from './style.module.css';
+
 import { useEffect, useRef, useState } from 'react';
 import { generateRandomUniqueNumbersArray } from '@/application/utils/generateRandomUniqueNumbersArray';
 
@@ -42,31 +44,15 @@ export const InfinityFlip = () => {
   }, []);
 
   return (
-    <div style={ {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    } }>
-      <div style={ {
-        width: '30px',
-        height: '55px',
-        transform: `rotateY(${ rotation }deg)`,
-      } }>
-        <div style={ {
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-        } }>
-          <div style={ {
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            backgroundImage: `url(bottle/${ currentImage }.jpeg)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-          } }/>
-        </div>
+    <div className={ styles.container }>
+      <div
+        className={ styles.card }
+        style={ {transform: `rotateY(${ rotation }deg)`} }
+      >
+        <div
+          className={ styles.image }
+          style={ {backgroundImage: `url(bottle/${ currentImage }.jpeg)`} }
+        />
       </div>
     </div>
   )

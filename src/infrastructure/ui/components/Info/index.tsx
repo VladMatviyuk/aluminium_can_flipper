@@ -1,3 +1,5 @@
+import style from './style.module.css';
+
 import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,15 +14,15 @@ interface IProps {
 
 const Info: FC<IProps> = ({turns, reset, time}) => {
   return (
-    <div className="info">
+    <div className={ style.info }>
 
       { time !== undefined && <p>Время: { time }</p> }
       { turns !== undefined && <p>Ход: { turns >= 0 ? turns : 0 }</p> }
 
-      <div className="actions">
-        <IoReload onClick={ reset } style={ {color: 'white', fontSize: '22px'} }/>
+      <div className={ style.actions }>
+        <IoReload onClick={ reset } className={ `${ style.icon } ${ style.reload }` }/>
         <Link to={ '..' }>
-          <IoMdClose style={ {color: 'white', fontSize: '32px'} }/>
+          <IoMdClose className={ `${ style.icon } ${ style.close }` }/>
         </Link>
       </div>
 

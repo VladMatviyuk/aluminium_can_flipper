@@ -51,7 +51,7 @@ export const InfinityFlip = () => {
       >
         <div
           className={ styles.image }
-          style={ {backgroundImage: `url(bottle/${ currentImage }.jpeg)`} }
+          style={ {backgroundImage: `url(bottle/${ currentImage }.webp)`} }
         />
       </div>
     </div>

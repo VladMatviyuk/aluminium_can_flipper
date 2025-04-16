@@ -26,7 +26,7 @@ const Deck: FC<IProps> = ({deck, flipped, matched, onCardClick}) => {
           >
             {
               flipped.includes(index) || matched.includes(card.id)
-                ? <img src={ `bottle/${ card.id }.jpeg` } alt="card"/>
+                ? <img src={ `bottle/${ card.id }.webp` } alt="card"/>
                 : <></>
             }
           </div>
